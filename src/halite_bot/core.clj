@@ -12,19 +12,17 @@
   (let [my-sites (->> game-map
                       flatten
                       (filter #(= (:owner %) my-id)))]
-    (do
-      (comment "this is doing some crazy voodoo magic here!")
-      (map vector my-sites (repeatedly #(rand-nth game/directions))))))
+    (map vector my-sites (repeatedly #(rand-nth game/directions)))))
 
-(defn less-rando-moves
+(defn move
   [id game-map]
   (let [my-sites (->> game-map
                       flatten
                       (filter #(= (:owner %) id)))]
     (map (fn [site]
-           (if (< 0 (:strength site))
-               [site (rand-nth (rest game/directions))]
-               [site :still]))
+           (if (< (:strength site) (* (:production site) 5))
+             [site :still]
+             [site (rand-nth (rest game/directions))]))
          my-sites)))
 
 
@@ -36,4 +34,4 @@
 
     (doseq [turn (range)]
       (let [game-map (io/create-game-map width height productions (io/read-ints!))]
-        (io/send-moves! (less-rando-moves my-id game-map))))))
+        (io/send-moves! (move my-id game-map))))))
