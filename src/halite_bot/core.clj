@@ -22,7 +22,7 @@
     (map (fn [site]
            (if (< (:strength site) (* (:production site) 5))
              [site :still]
-             [site (rand-nth (rest game/directions))]))
+             [site (rand-nth [:north :west])]))
          my-sites)))
 
 
