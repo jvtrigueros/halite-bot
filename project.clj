@@ -3,7 +3,8 @@
   :url ""
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.8.0"]]
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [com.taoensso/timbre "4.7.4"]]
   :main ^:skip-aot halite-bot.core
   :uberjar-name "MyBot.jar"
   :target-path "target/%s"
